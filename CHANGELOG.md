@@ -2,6 +2,46 @@
 
 ## Build Log
 
+### Phase 2 — Mutation Testing for Error Message Quality (2026-03-15)
+
+16 mutations applied to working px-app code. Each mutation tested transpiler
+error detection, actionability, and severity classification.
+
+**Issues filed:** OZ-021, OZ-023, OZ-025, OZ-027, OZ-029, OZ-031, OZ-033, OZ-035, OZ-037
+**Issues verified:** OZ-021, OZ-023, OZ-025/OZ-035, OZ-027/OZ-037, OZ-029, OZ-031
+**Issues reopened:** OZ-033 (protocol conformance check not triggering)
+
+**Meta-issue (OZ-021):** CMake now passes --strict to transpiler. All diagnostics
+visible during `west build`. Highest-impact fix — previously warnings were invisible.
+
+| Step | Mutation | Detection | Result | Issue |
+|------|----------|-----------|--------|-------|
+| 1 | @try/@catch | Error (good) | Lacked source file — fixed (OZ-023) | OZ-023 |
+| 2 | Boxed @() | None → TODO comment | Silently broke GCC — fixed (OZ-025→OZ-035) | OZ-025, OZ-035 |
+| 3 | Capturing block | Warning only | Wrong severity — fixed (OZ-027→OZ-037) | OZ-027, OZ-037 |
+| 4 | typedef ivar | None | Silently broke GCC — fixed, resolves to underlying type | OZ-029 |
+| 5 | Wrong class method | None | Silently emitted undefined function — fixed | OZ-031 |
+| 6 | Missing protocol method | None | Silent runtime crash (NULL vtable) — **reopened** | OZ-033 |
+| 7 | Selector mismatch | None | Same as Step 6 (NULL vtable) | (OZ-033) |
+| 8 | Missing argument | None | __patched__ fallback, GCC catches | (OZ-031) |
+| 9 | Missing @end | OK | Clang lenient at EOF — no issue |  |
+| 10 | .m removed from CMake | Warning | Wrong severity (warns but continues) | (OZ-031) |
+| 11 | Empty @implementation | Warning | Same as Step 10 | (OZ-031) |
+| 12 | Circular #import | OK | ObjC #import is include-once — no issue |  |
+| 13 | [self readValue] wrong hierarchy | None | Same NULL vtable as Step 6 | (OZ-033) |
+| 14 | Missing #import | Clang (hidden) | Clang error suppressed by build system | (OZ-021) |
+| 15 | Nonexistent return type | OK | Clang resolves gracefully — no issue |  |
+| 16 | Type mismatch assign | None | GCC catches — transpiler silent |  |
+
+**Key findings:**
+- OZ-021 (--strict) was the single highest-impact fix — made all warnings visible
+- OZ-025/OZ-027 fixes initially regressed (NULL instead of error), caught by
+  verification, fixed in OZ-035/OZ-037
+- OZ-033 (protocol conformance) is the remaining critical gap — missing protocol
+  methods cause silent runtime crashes with no diagnostic at any stage
+- Steps 9, 12, 15 were handled gracefully (Clang resilient, no issue needed)
+- Steps 5, 8, 10, 11, 16 had no transpiler diagnostic but GCC caught them
+
 ### Step 4-HW — Hardware checkpoint (2026-03-15)
 
 - **Result:** PASS (compiles and links)
