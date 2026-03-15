@@ -1,0 +1,24 @@
+# Local development — DEV pulls from MAINTAINER's working tree
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    - name: zephyr
+      remote: zephyrproject-rtos
+      revision: v4.3.0
+      import:
+        path-prefix: deps
+        name-allowlist:
+          - cmsis
+          - cmsis_6 # Required for Cortex-M (mps2/an385, nrf52833dk)
+          - hal_nordic # Required for nrf52833dk
+
+    - name: objective-z
+      url: https://github.com/rodrigopex/objective-z/
+      revision: px-app
+      path: objective-z
+
+  self:
+    path: px-app
