@@ -2,6 +2,19 @@
 
 ## Build Log
 
+### Boxed expressions @(expr) (2026-03-16)
+
+- **Result:** PASS (first try)
+- **Board:** mps2/an385 (QEMU)
+- Added `@(expression)` boxed expressions to `main.m`:
+  - `@(42)` — literal boxing → OZNumber with intValue 42
+  - `@(sensorVal)` — variable boxing → OZNumber with intValue 25
+  - `@(a + b)` — expression boxing → OZNumber with intValue 35
+  - `@[ @(100), @(200), @(300) ]` — array of boxed OZNumber, for-in iteration
+- All four patterns transpile and run correctly
+- Flash: 25,360 B (+616 B), RAM: 8,988 B (+128 B)
+- No issues. No workarounds needed.
+
 ### Phase 2 — Mutation Testing for Error Message Quality (2026-03-15)
 
 16 mutations applied to working px-app code. Each mutation tested transpiler
