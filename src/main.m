@@ -20,8 +20,6 @@
 static int _blockStatus;
 
 int main(void) {
-        [PXAppConfig initialize];
-        [PXLogger initialize];
         PXLogger *log = [PXLogger shared];
 
         [log info:@"px-app booted"];
@@ -63,7 +61,7 @@ int main(void) {
 
         PXTemperatureSensor *temp = [[PXTemperatureSensor alloc] initWithId:1];
         PXHumiditySensor *hum = [[PXHumiditySensor alloc] initWithId:2];
-        OZArray *sensorArray = @[ temp, hum ];
+        OZArray<id<PXSensorProtocol>> *sensorArray = @[ temp, hum ];
 
         PXMovingAverageFilter *avgFilter = [[PXMovingAverageFilter alloc] initWithWindowSize:3];
         PXThresholdFilter *threshFilter = [[PXThresholdFilter alloc]
@@ -76,8 +74,7 @@ int main(void) {
         int pass = 0;
         while (pass < 2) {
                 OZLog("  --- pass %d ---\n", pass);
-                for (id obj in sensorArray) {
-                        id<PXSensorProtocol> sensor = (id<PXSensorProtocol>)obj;
+                for (id sensor in sensorArray) {
                         int raw = [sensor readValue];
                         int sid = [sensor sensorId];
                         int avg = [stage1 processValue:raw fromSensor:sid];
