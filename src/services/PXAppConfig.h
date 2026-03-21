@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PXAppConfig : OZObject {
+@interface PXAppConfig : OZObject <SingletonProtocol> {
         int _sampleIntervalMs;
         int _thresholdHigh;
         int _thresholdLow;
@@ -15,6 +15,6 @@
 @property (nonatomic, assign) int maxSensorCount;
 
 + (void)initialize;
-+ (PXAppConfig *)shared;
++ (instancetype)sharedInstance;
 
 @end

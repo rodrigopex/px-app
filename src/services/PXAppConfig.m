@@ -1,5 +1,5 @@
 /* PXAppConfig — singleton with properties.
- * Exercises: +shared pattern, @property, @synthesize, file-scope static. */
+ * Exercises: SingletonProtocol, @property, @synthesize, file-scope static. */
 
 #import "PXAppConfig.h"
 
@@ -16,7 +16,7 @@ static PXAppConfig *_sharedConfig;
         _sharedConfig = [[PXAppConfig alloc] init];
 }
 
-+ (PXAppConfig *)shared {
++ (instancetype)sharedInstance {
         return _sharedConfig;
 }
 

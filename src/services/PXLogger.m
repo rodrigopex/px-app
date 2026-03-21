@@ -17,7 +17,7 @@ static PXLogger *_sharedLogger;
         _sharedLogger = [[PXLogger alloc] init];
 }
 
-+ (PXLogger *)shared {
++ (instancetype)sharedInstance {
         return _sharedLogger;
 }
 

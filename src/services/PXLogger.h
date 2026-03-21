@@ -3,13 +3,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PXLogger : OZObject {
+@interface PXLogger : OZObject <SingletonProtocol> {
         int _minLevel;
         int _messageCount;
 }
 
 + (void)initialize;
-+ (PXLogger *)shared;
++ (instancetype)sharedInstance;
 - (void)setMinLevel:(int)level;
 - (void)logLevel:(int)level message:(OZString *)msg;
 - (void)info:(OZString *)msg;
