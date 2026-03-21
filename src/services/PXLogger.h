@@ -2,6 +2,13 @@
 
 #import <Foundation/Foundation.h>
 
+enum PXLogLevel {
+        PXLogLevelDebug = 0,
+        PXLogLevelInfo = 1,
+        PXLogLevelWarn = 2,
+        PXLogLevelError = 3
+};
+
 @interface PXLogger : OZObject <SingletonProtocol> {
         int _minLevel;
         int _messageCount;

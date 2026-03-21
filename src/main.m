@@ -17,30 +17,6 @@
 #import "services/PXZbusPublisher.h"
 #include <zephyr/kernel.h>
 
-/* WA-007: enums duplicated here — header-defined enums not emitted (OZ-068) */
-enum PXSensorType {
-        PXSensorTypeBase = 0,
-        PXSensorTypeAnalog = 1,
-        PXSensorTypeTemperature = 2,
-        PXSensorTypeHumidity = 3,
-        PXSensorTypePressure = 4,
-        PXSensorTypeBarometer = 5
-};
-
-enum PXDeviceState {
-        PXDeviceStateIdle = 0,
-        PXDeviceStateInitializing = 1,
-        PXDeviceStateRunning = 2,
-        PXDeviceStateStopped = 3
-};
-
-enum PXLogLevel {
-        PXLogLevelDebug = 0,
-        PXLogLevelInfo = 1,
-        PXLogLevelWarn = 2,
-        PXLogLevelError = 3
-};
-
 static int _blockStatus;
 
 int main(void) {

@@ -1,24 +1,15 @@
 # Active Workarounds
 
-## WA-007: Duplicate enum in each .m file (OZ-068)
-
-- **Issue:** OZ-068 — enum defined in user header not emitted in generated C
-- **Workaround:** Define `enum PXSensorType`, `enum PXDeviceState`, and
-  `enum PXLogLevel` in each `.m` file that uses the constants. The transpiler
-  only emits enum definitions found in the `.m` translation unit, not from
-  included headers.
-- **Files affected:**
-  - `src/models/PXSensorBase.m` — PXSensorType
-  - `src/models/PXAnalogSensor.m` — PXSensorType
-  - `src/models/PXPressureSensor.m` — PXSensorType
-  - `src/models/PXBarometer.m` — PXSensorType
-  - `src/models/PXTemperatureSensor.m` — PXSensorType
-  - `src/models/PXHumiditySensor.m` — PXSensorType
-  - `src/main.m` — PXSensorType, PXDeviceState, PXLogLevel
-- **Revert:** Once OZ-068 is fixed, move enums to `.h` headers and remove
-  duplicates from `.m` files.
+(none)
 
 # Resolved Workarounds
+
+## WA-007: Duplicate enum in each .m file (OZ-069) — RESOLVED
+
+- **Issue:** OZ-069 — enum defined in user header not emitted in generated C
+- **Fix verified:** 2026-03-21. Transpiler now emits enum type_defs in generated
+  `.c` when constants are used in method bodies.
+- **Reverted:** Moved enums to `.h` headers, removed duplicates from `.m` files.
 
 ## WA-005: Separate .c file for C interop (OZ-013) — RESOLVED
 

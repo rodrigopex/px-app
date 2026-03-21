@@ -2,13 +2,6 @@
 
 #import "PXLogger.h"
 
-enum PXLogLevel {
-        PXLogLevelDebug = 0,
-        PXLogLevelInfo = 1,
-        PXLogLevelWarn = 2,
-        PXLogLevelError = 3
-};
-
 static PXLogger *_sharedLogger;
 
 @implementation PXLogger

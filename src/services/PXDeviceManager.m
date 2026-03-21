@@ -2,13 +2,6 @@
 
 #import "PXDeviceManager.h"
 
-enum PXDeviceState {
-        PXDeviceStateIdle = 0,
-        PXDeviceStateInitializing = 1,
-        PXDeviceStateRunning = 2,
-        PXDeviceStateStopped = 3
-};
-
 @implementation PXDeviceManager
 
 - (id)init {
