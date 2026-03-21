@@ -17,6 +17,30 @@
 #import "services/PXZbusPublisher.h"
 #include <zephyr/kernel.h>
 
+/* WA-007: enums duplicated here — header-defined enums not emitted (OZ-068) */
+enum PXSensorType {
+        PXSensorTypeBase = 0,
+        PXSensorTypeAnalog = 1,
+        PXSensorTypeTemperature = 2,
+        PXSensorTypeHumidity = 3,
+        PXSensorTypePressure = 4,
+        PXSensorTypeBarometer = 5
+};
+
+enum PXDeviceState {
+        PXDeviceStateIdle = 0,
+        PXDeviceStateInitializing = 1,
+        PXDeviceStateRunning = 2,
+        PXDeviceStateStopped = 3
+};
+
+enum PXLogLevel {
+        PXLogLevelDebug = 0,
+        PXLogLevelInfo = 1,
+        PXLogLevelWarn = 2,
+        PXLogLevelError = 3
+};
+
 static int _blockStatus;
 
 int main(void) {
@@ -91,7 +115,7 @@ int main(void) {
 
       int err = [pub publishSensorId:sid value:clamped timestamp:pass];
       OZString *sname = [sensor name];
-      OZLog("    %s: raw=%d out=%d pub=%d\n", [sname cStr], raw, clamped, err);
+      OZLog("    %s: raw=%d out=%d pub=%d\n", [sname cString], raw, clamped, err);
     }
     pass = pass + 1;
   }
@@ -143,11 +167,50 @@ int main(void) {
 
   /* Overridden method at each level */
   OZString *tname = [baro typeName];
-  OZLog("  typeName: %s\n", [tname cStr]);
+  OZLog("  typeName: %s\n", [tname cString]);
 
   /* Second altitude reading — verify state accumulates */
   int alt2 = [baro altitude];
   OZLog("  altitude 2: %d m (should differ from alt1)\n", alt2);
+
+  /* Enum in header: sensorType across hierarchy */
+  OZLog("  === Enum from header test ===\n");
+  int st = [baro sensorType];
+  switch (st) {
+    case PXSensorTypeBase:
+      OZLog("  type: base\n");
+      break;
+    case PXSensorTypeAnalog:
+      OZLog("  type: analog\n");
+      break;
+    case PXSensorTypePressure:
+      OZLog("  type: pressure\n");
+      break;
+    case PXSensorTypeBarometer:
+      OZLog("  type: barometer\n");
+      break;
+    default:
+      OZLog("  type: other (%d)\n", st);
+      break;
+  }
+
+  /* Enum from header: PXDeviceState */
+  int devState = [mgr state];
+  switch (devState) {
+    case PXDeviceStateRunning:
+      OZLog("  device: running\n");
+      break;
+    case PXDeviceStateStopped:
+      OZLog("  device: stopped\n");
+      break;
+    default:
+      OZLog("  device: other (%d)\n", devState);
+      break;
+  }
+
+  /* Enum from header: PXLogLevel as method param */
+  [log setMinLevel:PXLogLevelDebug];
+  [log logLevel:PXLogLevelWarn message:@"enum param test"];
 
   [mgr stop];
   [log info:@"done"];

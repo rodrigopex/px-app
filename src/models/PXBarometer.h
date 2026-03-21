@@ -8,5 +8,6 @@
 
 - (id)initWithId:(int)sensorId;
 - (int)altitude;
+- (int)sensorType;
 
 @end

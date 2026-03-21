@@ -19,7 +19,7 @@
                 id<PXSensorProtocol> sensor = (id<PXSensorProtocol>)obj;
                 OZString *sensorName = [sensor name];
                 OZLog("    %s[%d] = %d\n",
-                      [sensorName cStr], [sensor sensorId], [sensor readValue]);
+                      [sensorName cString], [sensor sensorId], [sensor readValue]);
         }
 }
 

@@ -2,6 +2,15 @@
 
 #import "PXTemperatureSensor.h"
 
+enum PXSensorType {
+        PXSensorTypeBase = 0,
+        PXSensorTypeAnalog = 1,
+        PXSensorTypeTemperature = 2,
+        PXSensorTypeHumidity = 3,
+        PXSensorTypePressure = 4,
+        PXSensorTypeBarometer = 5
+};
+
 @implementation PXTemperatureSensor
 
 - (id)initWithId:(int)sensorId {
@@ -19,6 +28,10 @@
         /* Simulate temperature reading — increment by 1 each call */
         _currentTemp = _currentTemp + 1;
         return _currentTemp;
+}
+
+- (int)sensorType {
+        return PXSensorTypeTemperature;
 }
 
 - (OZString *)name {

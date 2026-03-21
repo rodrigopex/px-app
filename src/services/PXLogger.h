@@ -1,5 +1,4 @@
-/* PXLogger — structured logging with severity levels.
- * Log levels: 0=debug, 1=info, 2=warn, 3=error (enum in .m file) */
+/* PXLogger — structured logging with severity levels. */
 
 #import <Foundation/Foundation.h>
 

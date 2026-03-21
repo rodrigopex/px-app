@@ -10,6 +10,7 @@
 - (id)initWithId:(int)sensorId;
 - (int)sensorId;
 - (int)sampleCount;
+- (int)sensorType;
 - (OZString *)typeName;
 
 @end

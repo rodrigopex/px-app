@@ -9,6 +9,7 @@
 }
 
 - (id)initWithId:(int)sensorId;
+- (int)sensorType;
 - (OZString *)name;
 
 @end

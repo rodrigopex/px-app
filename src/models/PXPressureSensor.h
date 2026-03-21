@@ -8,5 +8,6 @@
 
 - (id)initWithId:(int)sensorId calibration:(int)offset scale:(int)scale;
 - (int)pressureReading;
+- (int)sensorType;
 
 @end

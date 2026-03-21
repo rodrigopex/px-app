@@ -10,5 +10,6 @@
 - (id)initWithId:(int)sensorId calibration:(int)offset;
 - (int)readRaw;
 - (int)calibratedValue;
+- (int)sensorType;
 
 @end

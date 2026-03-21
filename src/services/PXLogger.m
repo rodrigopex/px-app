@@ -40,19 +40,19 @@ static PXLogger *_sharedLogger;
 
         switch (level) {
                 case PXLogLevelDebug:
-                        OZLog("[DBG] %s\n", [msg cStr]);
+                        OZLog("[DBG] %s\n", [msg cString]);
                         break;
                 case PXLogLevelInfo:
-                        OZLog("[INF] %s\n", [msg cStr]);
+                        OZLog("[INF] %s\n", [msg cString]);
                         break;
                 case PXLogLevelWarn:
-                        OZLog("[WRN] %s\n", [msg cStr]);
+                        OZLog("[WRN] %s\n", [msg cString]);
                         break;
                 case PXLogLevelError:
-                        OZLog("[ERR] %s\n", [msg cStr]);
+                        OZLog("[ERR] %s\n", [msg cString]);
                         break;
                 default:
-                        OZLog("[???] %s\n", [msg cStr]);
+                        OZLog("[???] %s\n", [msg cString]);
                         break;
         }
 }
